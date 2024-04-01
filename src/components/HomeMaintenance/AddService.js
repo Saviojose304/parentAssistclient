@@ -158,7 +158,7 @@ function AddService() {
             }
             try {
                 // Assuming you have a backend API endpoint to handle this request
-                const backendEndpoint = 'http://13.233.162.230:9000/addService';
+                const backendEndpoint = 'https://13.233.162.230:9000/addService';
 
 
                 const requestBody = {

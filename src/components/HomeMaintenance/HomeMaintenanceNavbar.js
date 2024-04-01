@@ -17,7 +17,7 @@ function HomeMaintenanceNavbar({ setLatitude, setLongitude }) {
 
     useEffect(() => {
         // Fetch locations from the backend
-        fetch('http://13.233.162.230:9000/api/distinct-locations')
+        fetch('https://13.233.162.230:9000/api/distinct-locations')
             .then((response) => response.json())
             .then((data) => {
                 setLocations(data);

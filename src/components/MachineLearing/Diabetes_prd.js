@@ -54,7 +54,7 @@ function Diabetes_prd() {
 
     useEffect(() => {
         const fetchData = async () => {
-            axios.get(`http://13.233.162.230:9000/getParentViewData?user_id=${user_id}`)
+            axios.get(`https://13.233.162.230:9000/getParentViewData?user_id=${user_id}`)
                 .then((response) => {
                     if (response.status === 200) {
                         setParentsList(response.data.results);
@@ -158,7 +158,7 @@ function Diabetes_prd() {
     }
 
     const handleCheck = async (Gender, Age) => {
-        axios.get(`http://localhost:9000/getLatestDoctorVisitDetailsChild?user_id=${user_id}&gender=${Gender}`)
+        axios.get(`https://13.233.162.230:9000/getLatestDoctorVisitDetailsChild?user_id=${user_id}&gender=${Gender}`)
             .then((response) => {
                 if (response.status === 200) {
                     console.log(response.data);

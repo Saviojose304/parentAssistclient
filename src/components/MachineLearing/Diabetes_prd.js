@@ -93,7 +93,7 @@ function Diabetes_prd() {
 
 
         try {
-            const response = await fetch('http://13.233.162.230:5000/predict', {
+            const response = await fetch('https://13.233.162.230:5000/predict', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

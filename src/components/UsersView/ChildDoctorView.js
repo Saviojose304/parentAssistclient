@@ -64,9 +64,21 @@ function ChildDoctorView() {
     const handleparents = () => {
         navigate('/ChildProfile')
     }
+   
+    const handleService = () => {
+        navigate('/ParentServiceView');
+    };
+
+    const handleBookedTherapy = () => {
+        navigate('/ParentBookedTherapyView')
+    };
+
+    const handleRequsetService = () => {
+        navigate('/parentRequestService')
+    }
 
 
-    
+
 
 
     const fetchDoctors = async () => {
@@ -192,48 +204,101 @@ function ChildDoctorView() {
 
             <div className="row d-flex">
                 <div className='col-2 mt-2' id="sidebar-nav">
-                    <div className="container pt-5">
-                        <div className="row flex-nowrap" >
-                            <div className=" px-0">
-                                <div id="sidebar" className='show border-end pt-2'>
-                                    <div className="d-grid  mx-auto ">
-                                        <button type="button" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={handleprofile} >
-                                            <a href="#" className="text-decoration-none list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar">
-                                                <i class="bi bi-gear-fill"><span>View Profile</span></i>
-                                            </a>
-                                        </button>
-                                        <button type="button" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={handleparents}>
-                                            <a href="#" className="text-decoration-none list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar">
-                                                <i className="bi bi-people-fill"><span>Parent Details</span></i>
-                                            </a>
-                                        </button>
-                                        <button type="button" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={handledoctor}>
-                                            <a href="#" className="text-decoration-none list-group-item border-end-0 d-inline text-truncate" data-bs-parent="#sidebar">
-                                                <i class="bi bi-activity"><span>Doctors</span></i>
-                                            </a>
-                                        </button>
-                                        {/* <button type="button" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={handledoctorVisits}>
+
+                    {userRole == "Child" ? (
+                        <>
+                            <div className="container pt-5">
+                                <div className="row flex-nowrap" >
+                                    <div className=" px-0">
+                                        <div id="sidebar" className='show border-end pt-2'>
+                                            <div className="d-grid  mx-auto ">
+                                                <button type="button" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={handleprofile} >
+                                                    <a href="#" className="text-decoration-none list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar">
+                                                        <i class="bi bi-gear-fill"><span>View Profile</span></i>
+                                                    </a>
+                                                </button>
+                                                <button type="button" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={handleparents}>
+                                                    <a href="#" className="text-decoration-none list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar">
+                                                        <i className="bi bi-people-fill"><span>Parent Details</span></i>
+                                                    </a>
+                                                </button>
+                                                <button type="button" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={handledoctor}>
+                                                    <a href="#" className="text-decoration-none list-group-item border-end-0 d-inline text-truncate" data-bs-parent="#sidebar">
+                                                        <i class="bi bi-activity"><span>Doctors</span></i>
+                                                    </a>
+                                                </button>
+                                                {/* <button type="button" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={handledoctorVisits}>
                                             <a href="#" className="text-decoration-none list-group-item border-end-0 d-inline text-truncate" data-bs-parent="#sidebar">
                                                 <i class="bi bi-activity"><span>Doctors Visits</span></i>
                                             </a>
                                         </button> */}
-                                        <button type="button" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={handleReports}>
-                                            <a href="#" className="text-decoration-none list-group-item border-end-0 d-inline text-truncate" data-bs-parent="#sidebar">
-                                                <i class="bi bi-file-earmark-pdf"><span>Reports</span></i>
-                                            </a>
-                                        </button>
-                                        <button type="button" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={logOut}>
-                                            <a href="#" className="text-decoration-none list-group-item border-end-0 d-inline text-truncate" data-bs-parent="#sidebar">
-                                                <i className="bi bi-box-arrow-right"><span>Logout</span></i>
-                                            </a>
-                                        </button>
+                                                <button type="button" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={handleReports}>
+                                                    <a href="#" className="text-decoration-none list-group-item border-end-0 d-inline text-truncate" data-bs-parent="#sidebar">
+                                                        <i class="bi bi-file-earmark-pdf"><span>Reports</span></i>
+                                                    </a>
+                                                </button>
+                                                <button type="button" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={logOut}>
+                                                    <a href="#" className="text-decoration-none list-group-item border-end-0 d-inline text-truncate" data-bs-parent="#sidebar">
+                                                        <i className="bi bi-box-arrow-right"><span>Logout</span></i>
+                                                    </a>
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className="container pt-5">
+                                <div className="row flex-nowrap" >
+                                    <div className=" px-0">
+                                        <div id="sidebar" className='show border-end pt-2'>
+                                            <div className="d-grid  mx-auto ">
+                                                <button type="button" id="profile" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={handleprofile} >
+                                                    <a href="#" className="text-decoration-none list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar">
+                                                        <i class="bi bi-gear-fill"><span>View Profile</span></i>
+                                                    </a>
+                                                </button>
+                                                <button type="button" id="service" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={handleService}>
+                                                    <a href="" className="text-decoration-none list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar">
+                                                        <i className="bi bi-people-fill"><span>Therapy Services</span></i>
+                                                    </a>
+                                                </button>
+                                                <button type="button" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={handleBookedTherapy}>
+                                                    <a href="" className="text-decoration-none list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar">
+                                                        <i className="bi bi-people-fill"><span>Booked Therapy</span></i>
+                                                    </a>
+                                                </button>
 
+                                                <button id="homeservice" type="button" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={handleRequsetService}>
+                                                    <a href="" className="text-decoration-none list-group-item border-end-0 d-inline-block text-truncate" data-bs-parent="#sidebar">
+                                                        <i className="bi bi-house-gear-fill"><span>Home Services</span></i>
+                                                    </a>
+                                                </button>
 
+                                                <button type="button" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={handledoctor}>
+                                                    <a href="#" className="text-decoration-none list-group-item border-end-0 d-inline text-truncate" data-bs-parent="#sidebar">
+                                                        <i class="bi bi-activity"><span>Doctors</span></i>
+                                                    </a>
+                                                </button>
+                                                <button type="button" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={handledoctorVisits}>
+                                                    <a href="#" className="text-decoration-none list-group-item border-end-0 d-inline text-truncate" data-bs-parent="#sidebar">
+                                                        <i class="bi bi-activity"><span>Doctors Visits</span></i>
+                                                    </a>
+                                                </button>
+                                                <button type="button" id="logout" className="btn border-light btn-outline-primary" style={{ width: "100%", borderRadius: "0px" }} onClick={logOut}>
+                                                    <a href="#" className="text-decoration-none list-group-item border-end-0 d-inline text-truncate" data-bs-parent="#sidebar">
+                                                        <i className="bi bi-box-arrow-right"><span>Logout</span></i>
+                                                    </a>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
                 <div style={{ paddingTop: "5rem" }} className='col-10'>
                     <div className="container  light-style flex-grow-1 container-p-y">

@@ -42,7 +42,7 @@ function ServiceProviderHomePage() {
 
     useEffect(() => {
         const fetchData = async () => {
-            axios.get(`https://13.233.162.230:9000/getRequestServices?user_id=${user_id}`)
+            axios.get(`https://15.206.80.235:9000/getRequestServices?user_id=${user_id}`)
                 .then((response) => {
                     if (response.status === 200) {
                         const services = response.data;
@@ -140,7 +140,7 @@ function ServiceProviderHomePage() {
             formData.append('userId', parsedToken.userId);
             formData.append('serviceName', serviceName);
 
-            const submitResponse = await axios.post(`https://13.233.162.230:9000/acceptRequest`, formData, {
+            const submitResponse = await axios.post(`https://15.206.80.235:9000/acceptRequest`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

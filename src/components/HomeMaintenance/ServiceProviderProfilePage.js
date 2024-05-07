@@ -60,7 +60,7 @@ function ServiceProfile() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://13.233.162.230:9000/getSellerData', { params: { user_id }});
+                const response = await axios.get('https://15.206.80.235:9000/getSellerData', { params: { user_id }});
                 const userData = response.data;
                 console.log(userData);
                 // Update the state with the user data
@@ -214,7 +214,7 @@ function ServiceProfile() {
         e.preventDefault();
         setSubmitClicked(true);
         try {
-            const response = await axios.put('https://13.233.162.230:9000/Sellerprofileupdate',{name, address, phone, user_id});
+            const response = await axios.put('https://15.206.80.235:9000/Sellerprofileupdate',{name, address, phone, user_id});
             if (response.status === 200) {
                 setAlertInfo({ variant: 'success', message: 'Profile Update Successfully', show: true });
             }
@@ -229,7 +229,7 @@ function ServiceProfile() {
         setSubmitClicked(true);
 
         try {
-            const response = await axios.put('https://13.233.162.230:9000/ProfilePassUpdate',{password, user_id});
+            const response = await axios.put('https://15.206.80.235:9000/ProfilePassUpdate',{password, user_id});
             if (response.status === 200) {
                 setAlertInfo({ variant: 'success', message: 'Password Update Successfully', show: true });
             }

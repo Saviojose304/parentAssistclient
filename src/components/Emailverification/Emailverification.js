@@ -10,7 +10,7 @@ function Emailverification() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.post('https://13.233.162.230:9000/emailverify', { token })
+    axios.post('https://15.206.80.235:9000/emailverify', { token })
       .then(response => {
         if (response.data.success) {
         //   setVerificationStatus(true);

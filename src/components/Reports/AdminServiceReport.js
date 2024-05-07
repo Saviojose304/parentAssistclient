@@ -12,7 +12,7 @@ function AdminServiceReports({ userId }) {
 
     useEffect(() => {
         const fetchData = async () => {
-            axios.get(`https://13.233.162.230:9000/getRequestServices?user_id=${userId}`)
+            axios.get(`https://15.206.80.235:9000/getRequestServices?user_id=${userId}`)
                 .then((response) => {
                     if (response.status === 200) {
                         const { matchingServiceRequests, servicePaymentDetails } = response.data;

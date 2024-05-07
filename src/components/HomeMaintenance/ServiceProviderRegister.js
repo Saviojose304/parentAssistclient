@@ -321,7 +321,7 @@ function ServiceProviderRegister() {
             
     
             // Make the Axios POST request
-            const response = await axios.post('https://13.233.162.230:9000/serviceProviderRegister', formData, {
+            const response = await axios.post('https://15.206.80.235:9000/serviceProviderRegister', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data', // Important: Set the content type to multipart/form-data
                 },

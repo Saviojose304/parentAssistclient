@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 function ServiceProviderHomePage() {
     const token = localStorage.getItem('token');
     const parsedToken = JSON.parse(token);
-    const user_id = parsedToken.userId;
+    const user_id = parsedToken ? parsedToken.userId: "";
 
     // console.log(parsedToken);
 
@@ -31,12 +31,14 @@ function ServiceProviderHomePage() {
 
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem('token'));
-        const user_role = token.role;
-        if (token !== null && user_role == 'SRVCPRVDR') {
-            setIsAuthenticated(true);
+        if (token !== null) {
+            const user_role = token.role;
+            if(user_role == 'SRVCPRVDR'){
+                setIsAuthenticated(true);
+            }
         } else {
             setIsAuthenticated(false);
-            navigate('/Login'); // Navigate to login if no token is present
+            navigate('/'); // Navigate to login if no token is present
         }
     }, [navigate]);
 

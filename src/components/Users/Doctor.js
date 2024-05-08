@@ -16,9 +16,7 @@ function Doctor() {
     const [showForm, setShowForm] = useState(false);
     const token = localStorage.getItem('token');
     const parsedToken = JSON.parse(token); // Parse the token string to an object
-    const doctor_user_id = parsedToken.userId;
-
-
+    const doctor_user_id = parsedToken ? parsedToken.userId: "";
     const navigate = useNavigate();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [parents, setParents] = useState([]); // State to hold the list of parents
@@ -36,12 +34,14 @@ function Doctor() {
 
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem('token'));
-        const user_role = token.role;
-        if (token !== null && user_role == 'Doctor') {
-            setIsAuthenticated(true);
+        if (token !== null) {
+            const user_role = token.role;
+            if(user_role === "Doctor"){
+                setIsAuthenticated(true);
+            }
         } else {
             setIsAuthenticated(false);
-            navigate('/Login'); // Navigate to login if no token is present
+            navigate('/'); // Navigate to login if no token is present
         }
     }, [navigate]);
 

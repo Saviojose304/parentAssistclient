@@ -7,20 +7,20 @@ function Parent() {
     const [medicineRoutine, setMedicineRoutine] = useState([]);
     const token = localStorage.getItem('token');
     const parsedToken = JSON.parse(token); // Parse the token string to an object
-    const user_id = parsedToken.userId;
-
-
+    const user_id = parsedToken ? parsedToken.userId : "";
     const navigate = useNavigate();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem('token'));
-        const user_role = token.role
-        if (token !== null && user_role == 'Parent'){
-            setIsAuthenticated(true);
+        if (token !== null){
+            const user_role = token.role
+            if(user_role == 'Parent'){
+                setIsAuthenticated(true);
+            }
         } else {
             setIsAuthenticated(false);
-            navigate('/Login'); 
+            navigate('/'); 
         }
     }, [navigate]);
 

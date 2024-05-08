@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+
 function MedicineDetails(props) {
     const { onMedicineData, parentId } = props;
-    const [selectedMedicineId, setSelectedMedicineId] = useState('');
     const [medicineOptions, setMedicineOptions] = useState([]); // Store medicine names
-    const [dropdownClicked, setDropdownClicked] = useState(false);
     const [medicineError, setMedicineError] = useState('');
-
+    const [inputText, setInputText] = useState(''); // State to store input text
+    const [showList, setShowList] = useState(false); // State to manage list visibility
 
     const fetchMedicineNames = async () => {
         try {
@@ -21,76 +21,51 @@ function MedicineDetails(props) {
     };  
 
     useEffect(() => {
-        if (props.isSubmissionSuccessful) {
-            setSelectedMedicineId("");
-        }
-    }, [props.isSubmissionSuccessful]);
+        fetchMedicineNames();
+    }, []);
 
-    const handleDropdownClick = () => {
-        if (!dropdownClicked) {
-            fetchMedicineNames();
-            setDropdownClicked(true);
-        }
+    const handleMedicineSelection = (selectedMedicineId, selectedMedicineName) => {
+        // Notify the parent component about the selected medicine
+        onMedicineData(selectedMedicineId);
+        setInputText(selectedMedicineName); // Update inputText with selected medicine name
+        setShowList(false); // Close the list
     };
 
-    const handleMedicineSelection = async (selectedMedicineId) => {
-        // Check for duplicate medicine selection
-        const isDuplicate = await checkDuplicateMedicineSelection(selectedMedicineId,parentId);
-        
-        if (isDuplicate) {
-            setMedicineError('Medicne Already Selected');
-            console.error("Duplicate medicine selection for the same parent and doctor visit.");
-        } else {
-            // The selected medicine is not a duplicate, set the selected medicine_id
-            setSelectedMedicineId(selectedMedicineId);
-            // Clear any previous error
-            setMedicineError('');
-            // Notify the parent component about the selected medicine
-            onMedicineData(selectedMedicineId);
-
-        }
+    const filterMedicineOptions = (input) => {
+        return medicineOptions.filter(option =>
+            option.name.toLowerCase().includes(input.toLowerCase())
+        );
     };
 
-    const checkDuplicateMedicineSelection = async (medicineId) => {
-        try {
-            const response = await axios.get('https://15.206.80.235:9000/checkDuplicateMedicineSelection', {
-                params: {
-                    parent_id: parentId,
-                    medicine_id: medicineId,
-                },
-            });
-    
-            if (response.status === 200) {
-                const isDuplicate = response.data.isDuplicate;
-                return isDuplicate;
-            }
-        } catch (error) {
-            console.error("Error checking for duplicate medicine selection:", error);
-            return false; // Assume an error means no duplicate (you can handle this differently if needed)
-        }
+    const handleInputChange = (e) => {
+        setInputText(e.target.value);
+        setShowList(true); // Show the list when user types in the input
     };
-
 
     return (
-        <>
-            <select
-                className="form-select mx-auto w-50"
-                value={selectedMedicineId}
-                onChange={(e) => {
-                    const selectedMedicineId = e.target.value;
-                    handleMedicineSelection(selectedMedicineId);
-                }}
-                onClick={handleDropdownClick} // Load medicine names onClick
-            >
-                <option value="" >Select Medicine</option>
-                {medicineOptions.map((option) => (
-                    <option key={option.medicine_id} value={option.medicine_id} >
-                        {option.name}
-                    </option>
-                ))}
-            </select>
-            <div className="d-flex justify-content-center align-content-center text-red-500">{medicineError}</div> <br />
-        </>
+        <div className="position-relative">
+            <input
+                type="text"
+                className="form-control mx-auto w-50"
+                placeholder="Enter Medicine"
+                value={inputText}
+                onChange={handleInputChange}
+            />
+            {showList && (
+                <ul className="list-group w-50 mx-auto mt-2 position-absolute start-0">
+                    {filterMedicineOptions(inputText).map((option) => (
+                        <li
+                            key={option.medicine_id}
+                            className="list-group-item"
+                            onClick={() => handleMedicineSelection(option.medicine_id, option.name)}
+                        >
+                            {option.name}
+                        </li>
+                    ))}
+                </ul>
+            )}
+            <div className="text-red-500 mt-2">{medicineError}</div>
+        </div>
     );
 }
 
